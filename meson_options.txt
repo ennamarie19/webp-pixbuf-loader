@@ -1,2 +1,3 @@
 option('gdk_pixbuf_query_loaders_path', type: 'string', description: 'A non default path for the gdk-pixbuf-query-loaders binary')
 option('gdk_pixbuf_moduledir', type: 'string', description: 'The path to install gdk-pixbuf modules into')
+option('gdk_build_for_fuzz', type: 'feature', value: 'enabled', description: 'Enable to instrument library and build a libFuzzer harness')
