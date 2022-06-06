@@ -17,7 +17,7 @@ gdk_pb_query_loaders = find_program(get_option('gdk_pixbuf_query_loaders_path'),
 
 fuzzer_ldflags = []
 if get_option('gdk_build_for_fuzz').enabled()
-    fuzzer_ldflags += ['-fsanitize=fuzzer']
+    fuzzer_ldflags += ['-fsanitize=fuzzer, '-meep']
     add_project_arguments('-fsanitize=fuzzer', language: 'c')
 endif
 
