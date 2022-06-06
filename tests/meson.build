@@ -44,7 +44,8 @@ if get_option('gdk_build_for_fuzz').enabled()
                                 sources: ['fuzz.c'],
                                 link_with: pbl_webp,
                                 dependencies: [gdkpb, webp, webpdemux, gtk3],
-                                c_args: ['-fsanitize=fuzzer', '-Wl,-fsanitize=fuzzer'],
+                                c_args: '-fsanitize=fuzzer',
+                                link_args: '-Wl,-fsanitize=fuzzer',
                                 include_directories: fuzz_inc_dir,
                                 install: false)
 endif
