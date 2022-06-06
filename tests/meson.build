@@ -50,7 +50,7 @@ if get_option('gdk_build_for_fuzz').enabled()
                                 link_with: pbl_webp,
                                 dependencies: [gdkpb, webp, webpdemux, gtk3],
                                 c_args: '-fsanitize=fuzzer',
-                                link_args: '-Wl,--fsanitize=fuzzer',
+                                link_args: '-fsanitize=fuzzer',
                                 install: false)
 endif
 test('load animation test duration', t5, env : ['GDK_PIXBUF_MODULE_FILE=' +
