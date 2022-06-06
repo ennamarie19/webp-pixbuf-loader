@@ -16,10 +16,11 @@ gtk3 = dependency('gtk+-3.0', version: '>3.22.0', method: 'pkg-config', required
 gdk_pb_query_loaders = find_program(get_option('gdk_pixbuf_query_loaders_path'), gdk_pb_query_loaders, gdk_pb_query_loaders+'-32', gdk_pb_query_loaders+'-64')
 
 #fuzzer_ldflags = []
-#if get_option('gdk_build_for_fuzz').enabled()
+if get_option('gdk_build_for_fuzz').enabled()
+    webp_pixbuf_inc_dir = include_directories('.')
 #    fuzzer_ldflags += ['-Wl,-fsanitize=fuzzer']
 #    add_project_arguments('-fsanitize=fuzzer', language: 'c')
-#endif
+endif
 
 pbl_webp = shared_library('pixbufloader-webp',
                           sources: ['io-webp.c', 'io-webp-anim.c'],

@@ -43,8 +43,6 @@ t4_gtk3_exe = executable('t4_gtk3_exe',
 #test('t4_gtk3_exe', t4_gtk3_exe)
 endif
 
-fuzz_inc_dir = include_directories(meson.source_root())
-
 if get_option('gdk_build_for_fuzz').enabled()
     fuzz_webp_exe = executable('fuzz_webp_pixbuf_loader',
                                 sources: ['fuzz.c'],
@@ -52,7 +50,7 @@ if get_option('gdk_build_for_fuzz').enabled()
                                 dependencies: [gdkpb, webp, webpdemux, gtk3],
                                 c_args: '-fsanitize=fuzzer',
                                 link_args: '-Wl,-fsanitize=fuzzer',
-                                include_directories: fuzz_inc_dir,
+                                include_directories: webp_pixbuf_inc_dir,
                                 install: false)
 endif
 test('load animation test duration', t5, env : ['GDK_PIXBUF_MODULE_FILE=' +
