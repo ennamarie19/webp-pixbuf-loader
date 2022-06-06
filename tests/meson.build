@@ -42,8 +42,8 @@ if get_option('gdk_build_for_fuzz').enabled()
                                 sources: ['fuzz.c'],
                                 link_with: pbl_webp,
                                 dependencies: [gdkpb, webp, webpdemux, gtk3],
-                                c_args: ['-fsanitize=fuzzer', '-Wl,-fsanitize=fuzzer']
-                                include_directories: meson.source_root()
+                                c_args: ['-fsanitize=fuzzer', '-Wl,-fsanitize=fuzzer'],
+                                include_directories: meson.source_root(),
                                 install: false)
 endif
 test('load animation test duration', t5, env : ['GDK_PIXBUF_MODULE_FILE=' +
