@@ -15,10 +15,15 @@ gtk3 = dependency('gtk+-3.0', version: '>3.22.0', method: 'pkg-config', required
 
 gdk_pb_query_loaders = find_program(get_option('gdk_pixbuf_query_loaders_path'), gdk_pb_query_loaders, gdk_pb_query_loaders+'-32', gdk_pb_query_loaders+'-64')
 
+fuzzer_ldflags = []
+if get_option('gdk_build_for_fuzz').enabled()
+    fuzzer_ldflags += ['-fsanitize=fuzzer-no-link']
+endif
 
 pbl_webp = shared_library('pixbufloader-webp',
                           sources: ['io-webp.c', 'io-webp-anim.c'],
                           dependencies: [gdkpb, webp, webpdemux],
+                          link_args: fuzzer_ldflags,
                           # Workaround for https://gitlab.gnome.org/GNOME/glib/issues/1413
                           name_suffix: host_machine.system() == 'darwin' ? 'so' : [],
                           install: true,

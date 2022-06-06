@@ -1,13 +1,18 @@
+fuzzer_ldflags = []
 
+if get_option('gdk_build_for_fuzz').enabled()
+    fuzzer_ldflags += ['-fsanitize=fuzzer-no-link']
+endif
 
 t1 = executable('t1', 't1.c',
+    link_args: fuzzer_ldflags,
     link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux])
-t2 = executable('t2', 't2.c', link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux])
-t3 = executable('t3', 't3.c', link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux])
-t4 = executable('t4', 't4.c', link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
+t2 = executable('t2', 't2.c', link_args: fuzzer_ldflags, link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux])
+t3 = executable('t3', 't3.c', link_args: fuzzer_ldflags, link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux])
+t4 = executable('t4', 't4.c', link_args: fuzzer_ldflags, link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
 # t4-gtk3 see below.
-t5 = executable('t5', 't5.c', link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
-t6 = executable('t6', 't6.c', link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
+t5 = executable('t5', 't5.c', link_args: fuzzer_ldflags, link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
+t6 = executable('t6', 't6.c', link_args: fuzzer_ldflags, link_with : pbl_webp, dependencies : [gdkpb, webp, webpdemux, gio2])
 
 loaders_data = configuration_data()
 loaders_data.set('MODULE_PATH', pbl_webp.full_path())
@@ -31,6 +36,7 @@ test('load animation and display', t4, env : ['GDK_PIXBUF_MODULE_FILE=' +
 if gtk3.found()
 t4_gtk3_exe = executable('t4_gtk3_exe',
                           sources: ['t4-gtk3.c'],
+                          link_args: fuzzer_ldflags,
                           link_with : pbl_webp,
                           dependencies: [gdkpb, webp, webpdemux, gtk3],
                           install: false)
