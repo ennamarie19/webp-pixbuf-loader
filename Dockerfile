@@ -18,12 +18,12 @@ RUN CC=clang CXX=clang++ meson setup build -Dgdk_build_for_fuzz=enabled -Dgdk_pi
 RUN ninja -v -C build -j$(nproc)
 
 ##Prepare all library dependencies for copy
-#RUN mkdir /deps
-#RUN cp `ldd ./test/.libs/fuzz | grep so | sed -e '/^[^\t]/ d' | sed -e 's/\t//' | sed -e 's/.*=..//' | sed -e 's/ (0.*)//' | sort | uniq` /deps 2>/dev/null || :
-#
-#FROM --platform=linux/amd64 ubuntu:20.04
-#COPY --from=builder /openslide/test/.libs/fuzz /fuzz
-#COPY --from=builder /deps /usr/lib
+RUN mkdir /deps
+RUN cp `ldd ./build/tests/fuzz_webp_pixbuf_loader | grep so | sed -e '/^[^\t]/ d' | sed -e 's/\t//' | sed -e 's/.*=..//' | sed -e 's/ (0.*)//' | sort | uniq` /deps 2>/dev/null || :
 
-#CMD /fuzz
+FROM --platform=linux/amd64 ubuntu:20.04
+COPY --from=builder /webp-pixbuf-loader/build/tests/fuzz_webp_pixbuf_loader /fuzz
+COPY --from=builder /deps /usr/lib
+
+CMD /fuzz
 

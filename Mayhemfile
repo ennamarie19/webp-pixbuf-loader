@@ -1,0 +1,10 @@
+image: ghcr.io/ennamarie19/webp-pixbuf-loader-fuzz:latest
+project: webp-pixbuf-loader
+target: webp-pixbuf-loader-fuzz
+testsuite:
+    - file://tests/corpus
+
+cmds:
+    - cmd: /fuzz
+      libfuzzer: true
+      max_length: 5000

@@ -9,8 +9,6 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#define MAX_BUFF_SIZE 5000000
-
 int delete_file(const char*);
 char *buf_to_file(const uint8_t*, size_t);
 
@@ -56,7 +54,6 @@ err:
 }
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     GError *error = NULL;
-    if (size > MAX_BUFF_SIZE) return 0;
 
     const char *filename = buf_to_file(data, size);
     if (!filename)
