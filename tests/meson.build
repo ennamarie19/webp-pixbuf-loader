@@ -43,7 +43,7 @@ t4_gtk3_exe = executable('t4_gtk3_exe',
 #test('t4_gtk3_exe', t4_gtk3_exe)
 endif
 
-fuzz_inc_dir = include_directories('..')
+fuzz_inc_dir = include_directories(meson.source_root())
 
 if get_option('gdk_build_for_fuzz').enabled()
     fuzz_webp_exe = executable('fuzz_webp_pixbuf_loader',
