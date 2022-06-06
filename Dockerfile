@@ -14,7 +14,8 @@ WORKDIR /webp-pixbuf-loader
 
 ##Build
 RUN mkdir build
-RUN CC=clang CXX=clang++ meson setup build -Dgdk_build_for_fuzz=enabled -Dgdk_pixbuf_query_loaders_path=/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
+RUN CC="clang" CXX=clang++ meson setup build -Dgdk_build_for_fuzz=enabled \
+    -Dgdk_pixbuf_query_loaders_path=/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders \
 RUN ninja -v -C build -j$(nproc)
 
 ##Prepare all library dependencies for copy
@@ -25,5 +26,7 @@ FROM --platform=linux/amd64 ubuntu:20.04
 COPY --from=builder /webp-pixbuf-loader/build/tests/fuzz_webp_pixbuf_loader /fuzz
 COPY --from=builder /deps /usr/lib
 
-CMD /fuzz
+## Debug corpus
+COPy --from=builder /webp-pixbuf-loader/tests/corpus /corpus
+CMD /fuzz /corpus
 
