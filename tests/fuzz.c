@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "io-webp.h"
+
 #define MAX_BUFF_SIZE 5000000
 
 uint8_t *buff[MAX_BUFF_SIZE];

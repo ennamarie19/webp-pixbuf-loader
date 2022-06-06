@@ -14,7 +14,7 @@ WORKDIR /webp-pixbuf-loader
 
 ##Build
 RUN mkdir build
-RUN meson build -Dgdk_pixbuf_query_loaders_path=/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
+RUN CC=clang CXX=clang++ meson build -Dgdk_build_for_fuzz -Dgdk_pixbuf_query_loaders_path=/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
 RUN ninja -C build -j$(nproc)
 
 ##Prepare all library dependencies for copy

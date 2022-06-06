@@ -47,4 +47,8 @@ typedef struct {
     GError **error;
 } WebPContext;
 
+#ifdef gdk_build_for_fuzz
+static GdkPixBuf* gdk_pixbuf__webp_image_load(FILE*, GError*);
+#endif
+
 #endif /* IO_WEBP_H */

@@ -10,6 +10,10 @@ webpdemux = dependency('libwebpdemux', version: '>0.4.3')
 gio2 = dependency('gio-2.0', version: '>2.56.0', method: 'pkg-config')
 gtk3 = dependency('gtk+-3.0', version: '>3.22.0', method: 'pkg-config', required: false)
 
+if get_option('gdk_build_for_fuzz').enabled()
+    add_global_arguments('-fsanitize=fuzzer-no-link, -Wl,-fsanitize=fuzzer-no-link', language: 'c')
+endif
+
 # -34/-64 is to overcome a Fedora bug in the .pc file
 # debian has a similar problem with its .pc file but it requires knowing the platform triad
 
