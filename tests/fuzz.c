@@ -1,6 +1,6 @@
 #include <stdint.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <stdio.h>
-#include "io-webp.h"
 #include <stdlib.h>
 
 #define MAX_BUFF_SIZE 5000000
