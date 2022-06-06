@@ -1,8 +1,8 @@
 fuzzer_ldflags = []
 
-if get_option('gdk_build_for_fuzz').enabled()
-    fuzzer_ldflags += ['-fsanitize=fuzzer-no-link']
-endif
+#if get_option('gdk_build_for_fuzz').enabled()
+#    fuzzer_ldflags += ['-fsanitize=fuzzer-no-link']
+#endif
 
 t1 = executable('t1', 't1.c',
     link_args: fuzzer_ldflags,
@@ -46,7 +46,7 @@ endif
 fuzz_inc_dir = include_directories('..')
 
 if get_option('gdk_build_for_fuzz').enabled()
-    fuzz_gtk3_exe = executable('fuzz_webp_pixbuf_loader',
+    fuzz_webp_exe = executable('fuzz_webp_pixbuf_loader',
                                 sources: ['fuzz.c'],
                                 link_with: pbl_webp,
                                 dependencies: [gdkpb, webp, webpdemux, gtk3],
