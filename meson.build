@@ -17,8 +17,8 @@ gdk_pb_query_loaders = find_program(get_option('gdk_pixbuf_query_loaders_path'),
 
 fuzzer_ldflags = []
 if get_option('gdk_build_for_fuzz').enabled()
-    fuzzer_ldflags += ['-fsanitize=fuzzer-no-link']
-    add_project_arguments('-fsanitize=fuzzer-no-link', language: 'c')
+    fuzzer_ldflags += ['-fsanitize=fuzzer']
+    add_project_arguments('-fsanitize=fuzzer', language: 'c')
 endif
 
 pbl_webp = shared_library('pixbufloader-webp',
